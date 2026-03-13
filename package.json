@@ -1,0 +1,25 @@
+{
+  "name": "sequelize",
+  "version": "1.0.0",
+  "description": "learning sequelize with nodee js",
+  "homepage": "https://github.com/hdqtonz/sequelize#readme",
+  "bugs": {
+    "url": "https://github.com/hdqtonz/sequelize/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hdqtonz/sequelize.git"
+  },
+  "license": "ISC",
+  "author": "Hiten",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mysql2": "^3.19.1",
+    "sequelize": "^6.37.8"
+  }
+}
