@@ -1,6 +1,8 @@
 const express = require("express");
 const db = require("./models");
 const router = require("./routes/router");
+const StudentRouter = require("./routes/student.route");
+const CourseRouter = require("./routes/course.route");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -13,6 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // api routes
 app.use("/api", router);
+app.use("/api", StudentRouter);
+app.use("/api", CourseRouter);
 
 (async () => {
   try {
