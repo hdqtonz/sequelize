@@ -106,10 +106,89 @@ const softDeleteUser = async (req, res) => {
   }
 };
 
+const updateUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, email } = req.body;
+
+    // // update user by id first method
+    // const [affectedRows] = await User.update(
+    //   {
+    //     name, // The fields to update
+    //     email,
+    //   },
+    //   {
+    //     where: { id },
+    //   },
+    // );
+
+    // if (affectedRows > 0) {
+    //   return res.status(200).json({
+    //     success: true,
+    //     message: "User updated successfully",
+    //     data: affectedRows,
+    //   });
+    // } else {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "User not found or not updated",
+    //   });
+    // }
+
+    // update user by id second method
+    const [affectedRows] = await User.update(
+      {
+        name, // The fields to update
+        email,
+      },
+      {
+        where: { id },
+      },
+    );
+
+    const user = await User.findByPk(id);
+
+    if (user) {
+      // 1:
+      // user.name = name;
+      // user.email = email;
+
+      // // save user
+      // await user.save();
+
+      // 2:
+      await user.update({
+        name,
+        email,
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: "User updated successfully",
+        data: user,
+      });
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "User not found or not updated",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "User Updated",
+      data: user,
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 module.exports = {
   createUser,
   getUsers,
   deleteAllUser,
   deleteUser,
   softDeleteUser,
+  updateUserById,
 };

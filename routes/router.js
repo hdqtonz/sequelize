@@ -8,5 +8,6 @@ router.get("/get-users", UserController.getUsers);
 router.delete("/delete-users", UserController.deleteAllUser);
 router.delete("/delete-user/:id", UserController.deleteUser);
 router.delete("/soft-delete-user/:id", UserController.softDeleteUser);
+router.put("/update-user/:id", UserController.updateUserById);
 
 module.exports = router;
