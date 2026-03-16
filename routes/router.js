@@ -1,5 +1,6 @@
 const express = require("express");
 const UserController = require("../controllers/user.controller.js");
+const PostController = require("../controllers/post.controller.js");
 
 const router = express.Router();
 
@@ -9,5 +10,10 @@ router.delete("/delete-users", UserController.deleteAllUser);
 router.delete("/delete-user/:id", UserController.deleteUser);
 router.delete("/soft-delete-user/:id", UserController.softDeleteUser);
 router.put("/update-user/:id", UserController.updateUserById);
+router.get("/v2/get-users", UserController.getUsersV2);
+router.get("/get-profile", UserController.getProfile);
+
+router.get("/get-user-posts", PostController.getUserPosts);
+router.get("/get-posts", PostController.getPost);
 
 module.exports = router;

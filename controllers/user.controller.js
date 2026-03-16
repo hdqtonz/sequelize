@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Profile } = require("../models");
 
 const createUser = async (req, res) => {
   try {
@@ -173,12 +173,60 @@ const updateUserById = async (req, res) => {
         message: "User not found or not updated",
       });
     }
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
 
-    return res.status(200).json({
-      success: true,
-      message: "User Updated",
-      data: user,
+const getUsersV2 = async (req, res) => {
+  try {
+    const { id } = req.query;
+
+    console.log("id user", id);
+
+    const user = await User.findOne({
+      where: { id },
+      include: {
+        model: Profile,
+        as: "userProfile",
+      },
     });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User Not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Fetched User", data: user });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+const getProfile = async (req, res) => {
+  try {
+    const { id } = req.query;
+
+    const profile = await Profile.findOne({
+      where: { id },
+      include: {
+        model: User,
+        as: "userDetails",
+      },
+    });
+
+    if (!profile) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Profile Not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Fetched Profile", data: profile });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
@@ -191,4 +239,6 @@ module.exports = {
   deleteUser,
   softDeleteUser,
   updateUserById,
+  getUsersV2,
+  getProfile,
 };

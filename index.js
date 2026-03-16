@@ -14,14 +14,14 @@ app.use(express.urlencoded({ extended: true }));
 // api routes
 app.use("/api", router);
 
-// (async () => {
-//   try {
-//     await db.sequelize.sync({ alter: true });
+(async () => {
+  try {
+    await db.sequelize.sync({ alter: true });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on PORT: ${PORT}`);
-});
-//   } catch (e) {
-//     console.log("Error Whilte syncing database :", e);
-//   }
-// })();
+    app.listen(PORT, () => {
+      console.log(`Server is running on PORT: ${PORT}`);
+    });
+  } catch (e) {
+    console.log("Error Whilte syncing database :", e);
+  }
+})();

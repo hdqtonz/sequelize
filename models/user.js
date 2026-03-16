@@ -10,6 +10,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
+      // one to one
+      User.hasOne(models.Profile, {
+        foreignKey: "userId",
+        onDelete: "CASCADE",
+        as: "userProfile",
+      });
+
+      // one to many
+      User.hasMany(models.Post, {
+        foreignKey: "userId",
+        as: "posts",
+      });
     }
   }
   User.init(
